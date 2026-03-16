@@ -23,7 +23,7 @@ export function Footer() {
           </Link>
         </div>
         <p className="text-sm text-muted-foreground">
-          2026 ResumeAI. All rights reserved.
+          2026 Bkon. All rights reserved.
         </p>
       </div>
     </footer>
