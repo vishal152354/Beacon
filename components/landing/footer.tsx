@@ -9,7 +9,7 @@ export function Footer() {
           <div className="flex size-7 items-center justify-center rounded-lg bg-primary">
             <Brain className="size-3.5 text-primary-foreground" />
           </div>
-          <span className="font-semibold text-foreground">ResumeAI</span>
+          <span className="font-semibold text-foreground">Bkon</span>
         </div>
         <div className="flex items-center gap-8">
           <Link href="#" className="text-sm text-muted-foreground transition-colors hover:text-foreground">

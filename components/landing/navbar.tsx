@@ -12,7 +12,7 @@ export function Navbar() {
           <div className="flex size-8 items-center justify-center rounded-lg bg-primary">
             <Brain className="size-4 text-primary-foreground" />
           </div>
-          <span className="text-lg font-semibold tracking-tight text-foreground">ResumeAI</span>
+          <span className="text-lg font-semibold tracking-tight text-foreground">Bkon</span>
         </Link>
         <div className="hidden items-center gap-8 md:flex">
           <Link href="#features" className="text-sm text-muted-foreground transition-colors hover:text-foreground">

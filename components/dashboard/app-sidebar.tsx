@@ -47,7 +47,7 @@ export function AppSidebar() {
                   <Brain className="size-4 text-primary-foreground" />
                 </div>
                 <div className="flex flex-col gap-0.5 leading-none">
-                  <span className="font-semibold">ResumeAI</span>
+                  <span className="font-semibold">Bkon</span>
                   <span className="text-xs text-muted-foreground">HR Platform</span>
                 </div>
               </Link>
