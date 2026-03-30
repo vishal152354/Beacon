@@ -1,11 +1,18 @@
 import { NextRequest, NextResponse } from "next/server"
 import OpenAI from "openai"
+import { createClient } from "@supabase/supabase-js"
 
 // @ts-ignore
 import pdfParse from "pdf-parse"
 
 // Initialize OpenAI client
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
+
+// Initialize Supabase client
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+)
 
 export async function POST(req: NextRequest) {
   try {
@@ -29,6 +36,30 @@ export async function POST(req: NextRequest) {
     // Convert file to Buffer for pdf-parse
     const arrayBuffer = await file.arrayBuffer()
     const buffer = Buffer.from(arrayBuffer)
+
+    // Upload to Supabase Storage
+    const fileExtension = file.name.split('.').pop()
+    const uniqueFileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExtension}`
+    const filePath = `candidates/${uniqueFileName}`
+
+    const { data: uploadData, error: uploadError } = await supabase.storage
+      .from("resumes")
+      .upload(filePath, buffer, {
+        contentType: file.type || "application/pdf",
+        upsert: false,
+      })
+
+    if (uploadError) {
+      console.error("Supabase upload error:", uploadError)
+      return NextResponse.json(
+        { success: false, error: "Failed to upload to Supabase." },
+        { status: 500 }
+      )
+    }
+
+    const { data: publicUrlData } = supabase.storage
+      .from("resumes")
+      .getPublicUrl(filePath)
 
     // Parse the PDF
     let pdfText = ""
@@ -108,7 +139,12 @@ export async function POST(req: NextRequest) {
 
     const candidate = JSON.parse(responseContent)
 
-    return NextResponse.json({ success: true, candidate })
+    return NextResponse.json({
+      success: true,
+      candidate,
+      path: uploadData.path,
+      url: publicUrlData.publicUrl
+    })
   } catch (error: any) {
     console.error("Upload API Error:", error)
     return NextResponse.json(
