@@ -8,8 +8,10 @@ import { Button } from "@/components/ui/button"
 export function Hero() {
   return (
     <section className="relative overflow-hidden px-6 py-24 md:py-32">
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 size-[600px] rounded-full bg-primary/5 blur-3xl" />
+      <div className="absolute inset-0 -z-10 flex items-center justify-center">
+        <div className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 size-[800px] rounded-full bg-white/5 blur-[120px]" />
+        <div className="absolute left-0 bottom-0 size-[500px] rounded-full bg-white/5 blur-[100px]" />
+        <div className="absolute right-0 top-1/2 -translate-y-1/2 size-[600px] rounded-full bg-zinc-800/40 blur-[120px]" />
       </div>
       <div className="mx-auto max-w-4xl text-center">
         <motion.div
